@@ -22,8 +22,7 @@ var doc = `{
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
-    "paths": {
-    }
+    "paths": {}
 }`
 
 type swaggerInfo struct {
@@ -37,12 +36,12 @@ type swaggerInfo struct {
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
-	Version:     "1.0",
-	Host:        "localhost",
-	BasePath:    "/v1.0/invoke/aps-entrance-service/method",
+	Version:     "",
+	Host:        "",
+	BasePath:    "",
 	Schemes:     []string{},
-	Title:       "出入口车厅 API文档",
-	Description: "aps-entrance-service 在线API文档",
+	Title:       "",
+	Description: "",
 }
 
 type s struct{}
@@ -77,5 +76,5 @@ func (s *s) ReadDoc() string {
 }
 
 func init() {
-	swag.Register(swag.Name, &s{})
+	swag.Register("swagger", &s{})
 }
