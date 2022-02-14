@@ -5,6 +5,13 @@ import (
 	"gorm.io/gorm"
 )
 
+//@author: [abigfish]
+//@function: parseUserFilter
+//@description: 用户列表搜索条件过滤
+//@param: db *gorm.DB
+//@param: searchParams *model.UserParam
+//@param: filterType string
+//@return: *gorm.DB
 func parseUserFilter(db *gorm.DB, searchParams *model.UserParam) *gorm.DB {
 	// 名称
 	if searchParams.Name != "" {
@@ -14,6 +21,12 @@ func parseUserFilter(db *gorm.DB, searchParams *model.UserParam) *gorm.DB {
 	return db
 }
 
+//@author: [abigfish]
+//@function: GetUserList
+//@description: 获取用户列表数据
+//@param: searchParams *model.UserParam
+//@param: totalOnly bool 只获取总数据
+//@return: err error, list interface{}, total int64
 func GetUserList(searchParams *model.UserParam) (err error, list []model.User, total int64) {
 	// 创建db
 	db := model.DB.Model(&model.User{})
