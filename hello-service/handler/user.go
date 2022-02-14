@@ -10,7 +10,13 @@ import (
 
 type User struct {
 }
-
+// @Summary 获取用户列表
+// @Description 用户列表
+// @Tags 用户管理
+// @Param data query model.UserParam true "data"
+// @Success 0 {object} response.Response{data=resp.PageResult{list=[]model.User}} "{"code": 0, "data": { "list": [] } }"
+// @Router /user/list [get]
+// @Security
 func (c *User) List(r *http.Request) *response.Response  {
 	var searchParams *model.UserParam
 	if err := r.Parse(&searchParams); err != nil {
