@@ -1,12 +1,14 @@
 go build -o de-hello-service
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o de-hello-service
 
+swag init -o ./swagger
+
 docker build -t abigfish/hello-service .
 
+docker run -d --name=de-hello-service -e CONFIG_NAME="config" -p 3000:3000 -v /Users/chenliyu/go/src/dapr-examples/hello-service/config:/config abigfish/hello-service
 
 dapr run --app-id hello-service --app-protocol grpc --app-port 3000 --dapr-http-port 3501 --log-level debug --components-path ./config go run main.go
-
-swag init -o ./swagger
+dapr run --app-id hello-service --app-protocol grpc --app-port 3000 --dapr-http-port 3501 --log-level debug --components-path ./config ./de-hello-service
 
 http://127.0.0.1:3501/v1.0/invoke/hello-service/method/swagger.json
 ```
@@ -23,7 +25,7 @@ services:
         "-dapr-http-port", "3501",
         "-enable-metrics=false",
         "-log-level", "info",
-        "-placement-host-address", "192.168.0.13:50005"]
+        "-placement-host-address", "192.168.0.16:50005"]
     volumes:
         - "/Users/chenliyu/go/src/dapr-examples/hello-service/components/:/components"
         - "/etc/localtime:/etc/localtime:ro"
@@ -46,4 +48,3 @@ services:
 
 docker-compose up -d
 
-docker run -d --name=de-hello-service --network=host -e CONFIG_NAME="config" -p 3000:3000 -v /Users/chenliyu/go/src/dapr-examples/hello-service/config:/config abigfish/hello-service

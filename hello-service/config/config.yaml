@@ -3,13 +3,13 @@ server:
     address: :3000
 database:
     type: mysql
-    host: 192.168.0.13
+    host: docker.for.mac.host.internal
     port: 3306
     user: root
     password: 123456
     name: de-hello-service
     charset: utf8mb4
-    prefix: entrance_ # 表前缀
+    prefix: t_ # 表前缀
     max-idle: 10 # 连接池最大闲置的连接数
     max-open: 10 # 连接池最大打开的连接数
     max-lifetime: 30 #连接对象可重复使用的时间长度(秒)

@@ -1,4 +1,80 @@
+definitions:
+  model.User:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  response.PageResult:
+    properties:
+      list: {}
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      total:
+        type: integer
+    type: object
+  response.Response:
+    properties:
+      code:
+        description: 代码
+        example: 0
+        type: integer
+      data:
+        description: 数据集
+      msg:
+        description: 消息
+        type: string
+    type: object
 info:
   contact: {}
-paths: {}
+paths:
+  /user/list:
+    get:
+      description: 用户列表
+      parameters:
+      - in: query
+        name: id
+        type: string
+      - in: query
+        name: name
+        type: string
+      - description: 排序
+        in: query
+        name: orderBy
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      responses:
+        "0":
+          description: '{"code": 0, "data": { "list": [] } }'
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/response.PageResult'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/model.User'
+                        type: array
+                    type: object
+              type: object
+      security:
+      - "": []
+      summary: 获取用户列表
+      tags:
+      - 用户管理
 swagger: "2.0"
