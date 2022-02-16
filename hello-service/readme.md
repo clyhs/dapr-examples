@@ -25,7 +25,7 @@ services:
         "-dapr-http-port", "3501",
         "-enable-metrics=false",
         "-log-level", "info",
-        "-placement-host-address", "192.168.0.16:50005"]
+        "-placement-host-address", "placement:50005"]
     volumes:
         - "/Users/chenliyu/go/src/dapr-examples/hello-service/components/:/components"
         - "/etc/localtime:/etc/localtime:ro"

@@ -3,7 +3,7 @@ server:
     address: :3000
 database:
     type: mysql
-    host: docker.for.mac.host.internal
+    host: 192.168.0.18
     port: 3306
     user: root
     password: 123456

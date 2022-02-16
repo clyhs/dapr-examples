@@ -15,6 +15,7 @@ build:
 	go env -w GOARCH=amd64
 	go build -a -ldflags '-extldflags "-static"' -o de-${SRV} main.go
 	go env -w CGO_ENABLED=1
+	go env -w GOOS=darwin
 
 .PHONY: docker
 docker:

@@ -11,7 +11,7 @@ services:
         "-dapr-http-port", "3501",
         "-enable-metrics=false",
         "-log-level", "info",
-        "-placement-host-address", "192.168.0.18:50005",
+        "-placement-host-address", "de-placement:50006",
         "-components-path","/components"]
     volumes:
         - "/Users/chenliyu/go/src/dapr-examples/hello-service/components/:/components"
@@ -35,7 +35,23 @@ services:
     restart: always
     ports:
         - 3000:3000
+    depends_on:
+        - de-redis
+        - de-placement
     networks:
+        - daprapp
+  de-redis:
+      image: "redis:latest"
+      ports:
+        - "6380:6379"
+      networks:
+        - daprapp
+  de-placement:
+      image: "daprio/dapr:1.6.0"
+      command: ["./placement", "-port", "50006"]
+      ports:
+        - "50006:50006"
+      networks:
         - daprapp
 networks:
   daprapp:
